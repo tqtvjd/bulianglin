@@ -24,9 +24,9 @@ def createSubscribe():
         ovpn = str(ovpn,'utf8')
         # text = unquote(ovpn, 'utf-8')
         # text = quote(text, 'utf-8')
-        result += ovpn.replace('%28Youtube:%E4%B8%8D%E8%89%AF%E6%9E%97%29', '') + "|\r\n"
+        result += ovpn.replace('%28Youtube:%E4%B8%8D%E8%89%AF%E6%9E%97%29', '') + "\n"
 
-    subscribe = result.strip('|')
+    # subscribe = result.strip('|')
     print(result)
     result = base64.b64encode(result.encode())
     result = str(result, 'utf-8')
