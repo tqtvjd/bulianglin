@@ -24,15 +24,27 @@ def createSubscribe():
         ovpn = str(ovpn,'utf8')
         # text = unquote(ovpn, 'utf-8')
         # text = quote(text, 'utf-8')
-        result += ovpn.replace('%28Youtube:%E4%B8%8D%E8%89%AF%E6%9E%97%29', '') + "\n"
+        result += _removeMarkName(ovpn) + "\n"
 
     # subscribe = result.strip('|')
     print(result)
     result = base64.b64encode(result.encode())
-    result = str(result, 'utf-8')
+    result = str(result, 'utf8')
     print("\n")
     print(result)
     _write2File(result)
+
+# 移除特定的名称标记
+def _removeMarkName(node):
+    print('原节点：' + node)
+    newNode = ''
+    if node.startswith('vmess://'):
+        newNode = str(base64.b64decode(node[8:]), 'utf8')
+        newNode = newNode.replace('(Youtube:不良林)', '')
+        newNode = 'vmess://' + str(base64.b64encode(newNode.encode()), 'utf8')
+    else:
+        newNode = node.replace('%28Youtube%3A%E4%B8%8D%E8%89%AF%E6%9E%97%29', '')
+    return newNode
 
 def _write2File(subscribe):
     with open('sub.txt', 'w') as fobj:
